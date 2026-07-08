@@ -367,7 +367,8 @@ class Panda(Robot):
     POSITIONAL_REPEATABILITY_MM = 0.1
     ROTATIONAL_REPEATABILITY_DEG = 0.14076593566091963
 
-    def __init__(self, verbose: bool = False):
+    def __init__(self, verbose: bool = False, end_effector_link_name: str = "panda_hand"):
+        assert end_effector_link_name in ["panda_hand", "panda_hand_tcp"]
         active_joints = [
             "panda_joint1",  # (-2.8973, 2.8973)
             "panda_joint2",  # (-1.7628, 1.7628)
@@ -395,7 +396,6 @@ class Panda(Robot):
 
         urdf_filepath = get_filepath("urdfs/panda/panda_arm_hand_formatted.urdf")
         base_link = "panda_link0"
-        end_effector_link_name = "panda_hand"
         # with additional ignored pairs, goes from 20 collision pair checks to 9. This results in a ~2x speedup
         ignored_collision_pairs = (
             [
@@ -409,7 +409,7 @@ class Panda(Robot):
 
         Robot.__init__(
             self,
-            Panda.name,
+            self.name,
             urdf_filepath,
             active_joints,
             base_link,
@@ -419,6 +419,17 @@ class Panda(Robot):
             verbose=verbose,
             additional_link_name=None,
         )
+
+
+
+class PandaHandTcp(Panda):
+    name = "panda_hand_tcp"
+    formal_robot_name = "Panda Hand TCP"
+
+    def __init__(self, verbose: bool = False, end_effector_link_name: str = "panda_hand_tcp"):
+        super().__init__(verbose, end_effector_link_name)
+
+        
 
 
 class Fr3(Robot):
@@ -1102,7 +1113,25 @@ class Cr5(Robot):
 
 
 # TODO: Add capsules for iiwa7, fix FK for baxter
-ALL_CLCS = [Panda, Fetch, FetchArm, Rizon4, Fr3, Ur3, Ur5, Ur10, Ur3e, Ur5e, Ur10e, Ur16e, Iiwa7, Iiwa14, XArm6, Cr5]
+ALL_CLCS = [
+    Panda,
+    PandaHandTcp,
+    Fetch,
+    FetchArm,
+    Rizon4,
+    Fr3,
+    Ur3,
+    Ur5,
+    Ur10,
+    Ur3e,
+    Ur5e,
+    Ur10e,
+    Ur16e,
+    Iiwa7,
+    Iiwa14,
+    XArm6,
+    Cr5,
+]
 ALL_ROBOT_NAMES = [clc.name for clc in ALL_CLCS]
 
 

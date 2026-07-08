@@ -262,6 +262,7 @@ class RobotTest(unittest.TestCase):
     def test_n_dofs(self):
         ground_truth_n_dofs = {
             "panda": 7,
+            "panda_hand_tcp": 7,
             "baxter": 7,
             "fetch": 8,
             "fetch_arm": 7,
@@ -305,6 +306,15 @@ class RobotTest(unittest.TestCase):
                 (-np.pi, np.pi),  # wrist_roll_joint
             ],
             "panda": [
+                (-2.8973, 2.8973),
+                (-1.7628, 1.7628),
+                (-2.8973, 2.8973),
+                (-3.0718, -0.0698),
+                (-2.8973, 2.8973),
+                (-0.0175, 3.7525),
+                (-2.8973, 2.8973),
+            ],
+            "panda_hand_tcp": [
                 (-2.8973, 2.8973),
                 (-1.7628, 1.7628),
                 (-2.8973, 2.8973),
@@ -373,6 +383,15 @@ class RobotTest(unittest.TestCase):
         print("test_actuated_joint_names()")
         ground_truth_actuated_joints = {
             "panda": [
+                "panda_joint1",
+                "panda_joint2",
+                "panda_joint3",
+                "panda_joint4",
+                "panda_joint5",
+                "panda_joint6",
+                "panda_joint7",
+            ],
+            "panda_hand_tcp": [
                 "panda_joint1",
                 "panda_joint2",
                 "panda_joint3",
@@ -471,6 +490,7 @@ class RobotTest(unittest.TestCase):
             "fetch": 14,  # 24 total joints, 10 of them are fixed
             "fetch_arm": 14,  # 24 total joints, 10 of them are fixed
             "panda": 8,  # panda has 1 non user specified actuated joint
+            "panda_hand_tcp": 8,  # same as panda
             "iiwa7": 7,  #
             "rizon4": 7,  #
             "ur5": 6,  #

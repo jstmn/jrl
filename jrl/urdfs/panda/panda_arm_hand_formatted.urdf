@@ -237,6 +237,17 @@
       <child link="panda_link8"/>
       <axis xyz="0 0 0"/>
     </joint>
+  
+  <!-- Copied from https://github.com/mani-skill/ManiSkill/blob/main/mani_skill/assets/robots/panda/panda_v3.urdf -->
+  <!-- Define the hand_tcp frame -->
+  <link name="panda_hand_tcp"/>
+  <joint name="panda_hand_tcp_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.1034"/>
+    <parent link="panda_hand"/>
+    <child link="panda_hand_tcp"/>
+  </joint>
+
+
   <joint name="panda_hand_joint" type="fixed">
     <parent link="panda_link8"/>
     <child link="panda_hand"/>
